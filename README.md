@@ -3,8 +3,8 @@
 **English** | [한국어](README.ko.md)
 
 A theme for [Redmine](https://www.redmine.org/) 6, named after hanji, traditional Korean paper.
-It uses an ivory page, warm white cards with thin beige lines, ink-colored text and one deep teal accent.
-There are no gradients, transparency or other decoration; the goal is comfortable reading. It has light and dark modes.
+It uses an ivory hanji page with faint mulberry fibers and uneven density, warm white cards with thin beige lines, ink-colored text and one deep teal accent.
+Apart from the paper texture there is no decoration such as gradients or transparency; the goal is comfortable reading. It has light and dark modes.
 
 ## Screenshots
 
@@ -26,7 +26,8 @@ The screenshots use a Korean interface. The projects, names and issues in them a
 
 ## Features
 
-- **A page of paper.** One content card sits on an ivory page, and the sidebar sits on the left without a frame.
+- **Hanji texture.** The page shows mulberry fibers and uneven paper density; the content card has a fainter grain. It is drawn with inline SVG in the stylesheet, with no image files.
+- **A page of paper.** One content card sits on the page, and the sidebar sits on the left without a frame.
 - **Underlined tabs.** The project menu is a single row of tabs; only the selected one gets a teal underline.
 - **One accent color.** Primary buttons, selection, progress bars and links all use one teal (`#0F766E`).
 - **Light and dark.** The theme follows the operating system at first. The sun/moon button at the top right switches it, and the choice is saved in the browser. Dark mode is a warm charcoal.
