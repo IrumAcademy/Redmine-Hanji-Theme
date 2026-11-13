@@ -1,0 +1,1284 @@
+/*
+ * Hanji Redmine Theme (MIT License)
+ * https://github.com/IrumAcademy/Redmine-Hanji-Theme
+ *
+ * Warm paper: an ivory page, warm white cards with thin beige lines, ink-colored text and one
+ * deep teal accent. Light and dark mode. No gradients, glass or decorative effects.
+ *
+ * Built on top of Redmine's default stylesheet. Dark mode is the `hanji-dark` class on <html>,
+ * set by javascripts/theme.js (follows the OS setting until the user picks one).
+ *
+ * Accent color: change the --hj-accent* values in both token blocks (light and dark).
+ */
+@import url(../../../stylesheets/application.css);
+
+/* =========================================================================================
+   1. Tokens
+   ========================================================================================= */
+:root {
+  --hj-accent: #0f766e;
+  --hj-accent-hover: #115e59;
+  --hj-accent-text: #0f766e;
+  --hj-on-accent: #fff;
+  --hj-accent-soft: rgba(15, 118, 110, 0.11);
+  --hj-accent-softer: rgba(15, 118, 110, 0.05);
+  --hj-accent-ring: rgba(15, 118, 110, 0.28);
+
+  --hj-bg: #f4efe6;
+  --hj-card: #fffcf7;
+  --hj-pop: #fffdf9;
+  --hj-card-border: #e6dccb;
+  --hj-surface: #fbf7f0;
+  --hj-surface-2: #f6f0e5;
+  --hj-field: #fffefb;
+  --hj-line: rgba(84, 60, 24, 0.12);
+  --hj-line-strong: rgba(84, 60, 24, 0.22);
+  --hj-hover: rgba(84, 60, 24, 0.05);
+  --hj-text: #2a2520;
+  --hj-text-2: #5f574c;
+  --hj-text-3: #92877a;
+
+  --hj-success: #2f7d4f;
+  --hj-success-text: #276a43;
+  --hj-success-soft: rgba(47, 125, 79, 0.11);
+  --hj-danger: #b42318;
+  --hj-danger-text: #9b1c12;
+  --hj-danger-soft: rgba(180, 35, 24, 0.09);
+  --hj-warning: #a15c07;
+  --hj-warning-text: #8a4f06;
+  --hj-warning-soft: rgba(161, 92, 7, 0.11);
+  --hj-highlight: rgba(234, 179, 8, 0.30);
+
+  --hj-shadow: 0 1px 2px rgba(74, 52, 20, 0.05);
+  --hj-shadow-pop: 0 10px 30px rgba(60, 40, 10, 0.14), 0 1px 3px rgba(60, 40, 10, 0.08);
+  --hj-radius: 10px;
+  --hj-radius-md: 8px;
+  --hj-radius-sm: 6px;
+  --hj-font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+             "Noto Sans KR", "Noto Sans CJK KR", "Malgun Gothic", "Noto Sans", system-ui, sans-serif;
+  --hj-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "D2Coding", "Liberation Mono", monospace;
+  --hj-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238a7f70' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+
+  --fonts-main: var(--hj-font);
+  color-scheme: light;
+}
+
+html.hanji-dark {
+  --hj-accent: #2f9e90;
+  --hj-accent-hover: #45b3a5;
+  --hj-accent-text: #6cc4b8;
+  --hj-on-accent: #fff;
+  --hj-accent-soft: rgba(76, 184, 170, 0.17);
+  --hj-accent-softer: rgba(76, 184, 170, 0.08);
+  --hj-accent-ring: rgba(76, 184, 170, 0.36);
+
+  --hj-bg: #1b1916;
+  --hj-card: #23201c;
+  --hj-pop: #2a2622;
+  --hj-card-border: #37312a;
+  --hj-surface: #28241f;
+  --hj-surface-2: #2e2924;
+  --hj-field: #1f1c18;
+  --hj-line: rgba(255, 238, 210, 0.09);
+  --hj-line-strong: rgba(255, 238, 210, 0.17);
+  --hj-hover: rgba(255, 238, 210, 0.05);
+  --hj-text: #ece5d8;
+  --hj-text-2: #b6ac9c;
+  --hj-text-3: #847a6c;
+
+  --hj-success: #6fbf8e;
+  --hj-success-text: #8fd1a8;
+  --hj-success-soft: rgba(111, 191, 142, 0.14);
+  --hj-danger: #ef8a7f;
+  --hj-danger-text: #f4a79e;
+  --hj-danger-soft: rgba(239, 138, 127, 0.14);
+  --hj-warning: #e3b05c;
+  --hj-warning-text: #ecc47f;
+  --hj-warning-soft: rgba(227, 176, 92, 0.14);
+  --hj-highlight: rgba(234, 179, 8, 0.22);
+
+  --hj-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --hj-shadow-pop: 0 12px 34px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --hj-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23b6ac9c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  color-scheme: dark;
+}
+
+/* =========================================================================================
+   2. Page, type, links
+   ========================================================================================= */
+html, body { background-color: var(--hj-bg); }
+body {
+  color: var(--hj-text);
+  font-family: var(--hj-font);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+}
+#wrapper { background: transparent; }
+body, button, input, select, textarea { font-family: var(--hj-font); }
+pre, code, tt, kbd, samp { font-family: var(--hj-mono); }
+
+h1, h2, h3, h4, h5, h6, #content h1, #content h2, #content h3, #content h4, #content h5, #content h6 {
+  color: var(--hj-text);
+  font-family: var(--hj-font);
+  letter-spacing: -0.015em;
+}
+h2, #content h2 { font-size: 1.4rem; font-weight: 700; }
+h3, #content h3 { font-weight: 700; }
+::selection { background: var(--hj-accent-soft); }
+::placeholder { color: var(--hj-text-3); opacity: 1; }
+hr { background: var(--hj-line); }
+blockquote { border-left: 3px solid var(--hj-line-strong); color: var(--hj-text-2); }
+
+a, a:link, a:visited { color: var(--hj-accent-text); }
+a:hover, a:active { color: var(--hj-accent-hover); text-decoration: none; }
+html.hanji-dark a:hover, html.hanji-dark a:active { color: #bfdbfe; }
+a.issue.closed, a.issue.closed:link, a.issue.closed:visited,
+a.project.closed, a.project.closed:link, a.project.closed:visited,
+a.user.locked, a.user.locked:link, a.user.locked:visited,
+tr.project.closed, tr.project.closed a, tr.project.archived, tr.project.archived a,
+tr.version.closed, tr.version.closed a, tr.user.locked, tr.user.locked a, tr.user.registered, tr.user.registered a {
+  color: var(--hj-text-3);
+}
+
+svg.icon-svg { stroke: var(--hj-accent-text); }
+#sidebar-switch-button svg { stroke: var(--hj-text-2); }
+
+/* =========================================================================================
+   3. Top bar, header, main menu
+   ========================================================================================= */
+#top-menu {
+  background: transparent;
+  border-bottom: 1px solid var(--hj-line);
+  color: var(--hj-text-2);
+  font-size: 0.85rem;
+  padding: 6px 24px;
+  line-height: 28px;
+}
+#top-menu a, #top-menu a:link, #top-menu a:visited {
+  color: var(--hj-text-2);
+  font-weight: 500;
+  margin-right: 2px;
+  padding: 4px 8px;
+  border-radius: var(--hj-radius-sm);
+}
+#top-menu a:hover { background: var(--hj-hover); color: var(--hj-text); text-decoration: none; }
+#top-menu #loggedas { color: var(--hj-text-3); margin-right: 6px; }
+#top-menu #loggedas a { color: var(--hj-text); padding: 0; margin: 0; }
+#top-menu #loggedas a:hover { background: none; color: var(--hj-accent-text); }
+#top-menu ul li { vertical-align: middle; }
+
+#header {
+  background: transparent;
+  color: var(--hj-text);
+  padding: 26px 24px 64px 24px;
+  min-height: 0;
+}
+#header a, #header a:link, #header a:visited { color: var(--hj-text); }
+#header h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  color: var(--hj-text);
+}
+#header h1 .breadcrumbs { font-size: 0.85rem; font-weight: 500; margin-bottom: 6px; line-height: 1.3; }
+#header h1 .breadcrumbs, #header h1 .breadcrumbs a { color: var(--hj-text-2); }
+#header h1 .breadcrumbs a:hover { color: var(--hj-accent-text); }
+
+#quick-search { color: var(--hj-text-2); }
+#quick-search label, #quick-search label a { color: var(--hj-text-2) !important; font-size: 0.85rem; }
+#quick-search #q {
+  width: 200px;
+  height: 34px;
+  border-radius: var(--hj-radius-sm);
+  padding: 0 12px;
+  background-color: var(--hj-field);
+  border: 1px solid var(--hj-line-strong);
+}
+#project-jump .drdn-trigger {
+  box-sizing: border-box;
+  height: 34px;
+  line-height: 32px;
+  border-radius: var(--hj-radius-sm);
+  padding: 0 32px 0 12px;
+  border: 1px solid var(--hj-line-strong);
+  background: var(--hj-field) var(--hj-chevron) no-repeat calc(100% - 10px) 50%;
+  color: var(--hj-text);
+  width: 220px;
+}
+#project-jump.expanded .drdn-trigger, #project-jump .drdn.expanded .drdn-trigger { background-image: var(--hj-chevron); }
+#project-jump .drdn-content { top: 40px; }
+#project-jump .drdn-items > * { color: var(--hj-text) !important; }
+#project-jump .drdn-items > a:hover { background-color: var(--hj-accent-soft); color: var(--hj-accent-text) !important; }
+
+/* Main menu: plain tabs on a single line, the selected one underlined */
+#main-menu {
+  left: 24px;
+  right: 24px;
+  bottom: 0;
+  width: auto;
+  margin-right: 0;
+}
+#main-menu > ul {
+  width: 100%;
+  border-bottom: 1px solid var(--hj-line-strong);
+  box-sizing: border-box;
+}
+#main-menu li { margin: 0 2px 0 0; }
+#main-menu li a, #main-menu li a:link, #main-menu li a:visited {
+  color: var(--hj-text-2);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 8px 12px 10px;
+  border-radius: 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+#main-menu li a:hover { background: transparent; color: var(--hj-text); border-bottom-color: var(--hj-line-strong); }
+#main-menu li a.selected, #main-menu li a.selected:hover {
+  background: transparent;
+  color: var(--hj-text);
+  font-weight: 700;
+  border-bottom-color: var(--hj-accent);
+}
+#main-menu li a.new-object { background: transparent; color: var(--hj-accent-text); font-weight: 700; }
+#main-menu li a.new-object:hover { background: transparent; color: var(--hj-accent-hover); }
+#main-menu .menu-children {
+  background: var(--hj-pop);
+  border: 1px solid var(--hj-line);
+  border-radius: var(--hj-radius-md);
+  box-shadow: var(--hj-shadow-pop);
+  padding: 4px;
+  overflow: hidden;
+}
+#main-menu .menu-children li a { color: var(--hj-text); background: transparent; border: 0; margin: 0; border-radius: var(--hj-radius-sm); padding: 6px 10px; }
+#main-menu .menu-children li a:hover { color: var(--hj-accent-text); background: var(--hj-accent-soft); }
+
+/* =========================================================================================
+   4. Layout: content card, sidebar on the left without a frame
+   ========================================================================================= */
+/* Sidebar on the left (Redmine puts it on the right with row-reverse) */
+#main {
+  flex-direction: row;
+  padding: 22px 24px 24px 24px;
+  gap: 22px;
+  align-items: flex-start;
+}
+#content {
+  background: var(--hj-card);
+  border: 1px solid var(--hj-card-border);
+  border-radius: var(--hj-radius);
+  box-shadow: var(--hj-shadow);
+  padding: 22px 28px 28px 28px;
+  min-height: 60vh;
+  box-sizing: border-box;
+  min-width: 0;
+}
+#sidebar {
+  background: transparent;
+  border: 0;
+  font-size: 0.9rem;
+  padding: 2px 4px 18px 0;
+  box-sizing: border-box;
+  position: sticky;
+  top: 16px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+}
+#main.collapsedsidebar #sidebar { padding: 0; width: auto; }
+#sidebar-switch-panel { margin: 0 0 6px 0; padding: 0; }
+#sidebar-switch-button { padding: 4px 6px; border-radius: var(--hj-radius-sm); width: auto; display: inline-block; }
+#sidebar-switch-button:hover { background: var(--hj-hover); }
+/* The collapse arrows point toward the right-hand sidebar; mirror them for the left one */
+#sidebar-switch-button svg { transform: scaleX(-1); }
+#sidebar h3 {
+  color: var(--hj-text);
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 20px 0 6px;
+}
+#sidebar h3:first-child { margin-top: 2px; }
+#sidebar hr { background: var(--hj-line); }
+#sidebar ul li { margin: 1px 0; }
+#sidebar ul.queries li a, #sidebar ul li a.query, #sidebar ul li a.wiki-page {
+  display: inline-block;
+  padding: 3px 8px;
+  margin-left: -8px;
+  border-radius: var(--hj-radius-sm);
+  color: var(--hj-text-2);
+}
+#sidebar ul li a:hover { background: var(--hj-hover); color: var(--hj-text); }
+#sidebar a.selected, #sidebar a.selected:hover {
+  background: var(--hj-accent-soft);
+  color: var(--hj-accent-text);
+  font-weight: 600;
+  padding: 3px 8px;
+  margin-left: -8px;
+  border-radius: var(--hj-radius-sm);
+}
+#sidebar a.selected svg.icon-svg { stroke: var(--hj-accent-text) !important; }
+
+#footer {
+  background: transparent;
+  border-top: 0;
+  color: var(--hj-text-3);
+  font-size: 0.8rem;
+  padding: 0 24px 22px;
+}
+#footer a { color: var(--hj-text-2); }
+
+/* Admin menu (sidebar on admin pages) */
+#admin-menu ul { padding: 0; }
+#admin-menu li { padding: 0; margin: 1px 0; }
+#admin-menu a {
+  display: flex !important;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px !important;
+  border-radius: var(--hj-radius-sm);
+  color: var(--hj-text-2);
+}
+#admin-menu a:hover { background: var(--hj-hover); color: var(--hj-text); }
+#admin-menu a svg.icon-svg { stroke: currentColor; }
+#admin-menu a.selected { background: var(--hj-accent-soft) !important; color: var(--hj-accent-text) !important; margin-left: 0; }
+/* Plugin entries with a background-image icon instead of an SVG */
+#admin-menu a:not(:has(svg)) { padding-left: 32px !important; background-position: 10px 50%; }
+
+/* =========================================================================================
+   5. Forms and buttons
+   ========================================================================================= */
+input, select, textarea, button {
+  color: var(--hj-text);
+  background-color: var(--hj-field);
+  border: 1px solid var(--hj-line-strong);
+  border-radius: var(--hj-radius-sm);
+  transition: border-color .12s ease, box-shadow .12s ease, background-color .12s ease;
+}
+input, select, button { height: 32px; padding: 0 10px; }
+textarea { padding: 8px 10px; line-height: 1.55; }
+select {
+  background-image: var(--hj-chevron);
+  background-position: calc(100% - 8px) 50%;
+  background-size: 16px;
+  padding-right: 30px;
+}
+select[multiple], select[multiple=multiple], select[size]:not([size="1"]) {
+  background-image: none;
+  background-color: var(--hj-field);
+  padding: 4px;
+  height: auto;
+}
+input[type="checkbox"], input[type="radio"] {
+  height: auto;
+  padding: 0;
+  accent-color: var(--hj-accent);
+  background: transparent;
+  border: 0;
+}
+input[type="file"] { border: 0; background: transparent; height: auto; padding: 4px 0; }
+input[type="text"]:focus, input[type="text"]:active,
+input[type="password"]:focus, input[type="password"]:active,
+input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus,
+input[type="date"]:focus, input[type="date"]:active,
+input[type="number"]:focus, input[type="number"]:active,
+select:focus, select:active,
+textarea:focus, textarea:active {
+  border: 1px solid var(--hj-accent);
+  box-shadow: 0 0 0 3px var(--hj-accent-ring);
+  outline: none;
+}
+input:disabled, select:disabled, textarea:disabled {
+  background-color: var(--hj-hover);
+  color: var(--hj-text-3);
+}
+fieldset {
+  border: 1px solid var(--hj-line);
+  border-radius: var(--hj-radius-md);
+  padding: 8px 14px 12px;
+}
+legend { color: var(--hj-text); font-weight: 600; padding: 0 6px; }
+fieldset.collapsible { border-width: 1px 0 0 0; border-radius: 0; padding-left: 0; padding-right: 0; }
+fieldset.collapsible > legend { color: var(--hj-text-2); }
+fieldset.collapsible > legend svg.icon-svg { stroke: var(--hj-text-2); }
+span.required, .required { color: var(--hj-danger); }
+em.info { color: var(--hj-text-3); }
+label { color: inherit; }
+
+/* Buttons: submit = primary, everything else = quiet */
+input[type="submit"], button[type="submit"], input[type="button"], button, a.button {
+  height: 34px;
+  padding: 0 14px;
+  border-radius: var(--hj-radius-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+input[type="submit"], button[type="submit"] {
+  background-color: var(--hj-accent);
+  border: 1px solid var(--hj-accent);
+  color: var(--hj-on-accent);
+  box-shadow: none;
+}
+input[type="submit"]:hover, button[type="submit"]:hover {
+  background-color: var(--hj-accent-hover);
+  border-color: var(--hj-accent-hover);
+}
+html.hanji-dark input[type="submit"]:hover, html.hanji-dark button[type="submit"]:hover { background-color: #2563eb; border-color: #2563eb; }
+/* Secondary submit buttons (e.g. "Create and continue", "Preview") */
+input[type="submit"] + input[type="submit"], input[type="submit"][name="continue"], input[type="submit"][name="preview"],
+input[type="submit"][name="cancel"] {
+  background-color: var(--hj-surface);
+  border-color: var(--hj-line-strong);
+  color: var(--hj-text);
+  box-shadow: none;
+}
+input[type="submit"] + input[type="submit"]:hover, input[type="submit"][name="continue"]:hover, input[type="submit"][name="preview"]:hover {
+  background-color: var(--hj-hover);
+  border-color: var(--hj-line-strong);
+}
+input[type="button"], button:not([type="submit"]) {
+  background-color: var(--hj-surface);
+  color: var(--hj-text);
+}
+input[type="button"]:hover, button:not([type="submit"]):hover { background-color: var(--hj-hover); }
+
+/* Query buttons ("Apply", "Clear", "Save") */
+p.buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+p.buttons a.icon { padding: 5px 10px; background: var(--hj-surface); border: 1px solid var(--hj-line); border-radius: var(--hj-radius-sm); color: var(--hj-text-2); }
+p.buttons a.icon:hover { background: var(--hj-hover); color: var(--hj-text); }
+p.buttons a.icon-checked { background: var(--hj-accent); border-color: var(--hj-accent); color: var(--hj-on-accent); }
+p.buttons a.icon-checked svg.icon-svg { stroke: var(--hj-on-accent); }
+p.buttons a.icon-checked:hover { background: var(--hj-accent-hover); color: var(--hj-on-accent); }
+
+/* Tabular forms (new issue, settings) */
+.tabular p { padding-top: 3px; padding-bottom: 3px; }
+.tabular label { color: var(--hj-text-2); font-weight: 600; }
+.tabular label.inline, .tabular label.block { font-weight: normal; }
+.check_box_group {
+  background: var(--hj-field);
+  border: 1px solid var(--hj-line-strong);
+  border-radius: var(--hj-radius-sm);
+}
+
+/* =========================================================================================
+   6. Boxes, flash messages, contextual links, drop-downs
+   ========================================================================================= */
+.box, div.box, #content .box {
+  background: var(--hj-surface);
+  color: var(--hj-text);
+  border: 1px solid var(--hj-line);
+  border-radius: var(--hj-radius-md);
+  box-shadow: none;
+  padding: 12px 16px;
+}
+
+div.flash, #errorExplanation, .conflict {
+  border-radius: var(--hj-radius-md);
+  border: 1px solid transparent;
+  padding: 10px 14px 10px 40px;
+  font-size: 0.95rem;
+}
+div.flash.error, #errorExplanation { background-color: var(--hj-danger-soft); border-color: rgba(220, 38, 38, 0.25); color: var(--hj-danger-text); }
+div.flash.notice { background-color: var(--hj-success-soft); border-color: rgba(5, 150, 105, 0.25); color: var(--hj-success-text); }
+div.flash.warning, .conflict { background-color: var(--hj-warning-soft); border-color: rgba(217, 119, 6, 0.25); color: var(--hj-warning-text); }
+div.flash.error svg.icon-svg, #errorExplanation svg.icon-svg { stroke: var(--hj-danger-text); }
+div.flash.notice svg.icon-svg { stroke: var(--hj-success-text); }
+div.flash.warning svg.icon-svg, .conflict svg.icon-svg { stroke: var(--hj-warning-text); }
+.nodata, .warning {
+  background-color: var(--hj-surface);
+  border: 1px dashed var(--hj-line-strong);
+  border-radius: var(--hj-radius-md);
+  color: var(--hj-text-3);
+  padding: 22px 14px;
+}
+
+.contextual { line-height: 1.6; font-size: 0.875rem; }
+.contextual > a, .contextual > span > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 8px;
+  border-radius: var(--hj-radius-sm);
+}
+.contextual > a:hover, .contextual > span > a:hover { background: var(--hj-accent-softer); }
+
+.drdn-content {
+  background-color: var(--hj-pop);
+  border: 1px solid var(--hj-line);
+  border-radius: var(--hj-radius-md);
+  box-shadow: var(--hj-shadow-pop);
+  color: var(--hj-text);
+  padding: 4px;
+}
+div + .drdn-items { border-top: 1px solid var(--hj-line); }
+.drdn-items > * { border: 1px solid transparent; border-radius: var(--hj-radius-sm); }
+.drdn-items > a:hover, .contextual .drdn-items > a:hover {
+  color: var(--hj-accent-text);
+  border-color: transparent;
+  background-color: var(--hj-accent-soft);
+  border-radius: var(--hj-radius-sm);
+}
+.drdn-items > span { color: var(--hj-text-3); }
+
+/* =========================================================================================
+   7. Tables and lists
+   ========================================================================================= */
+table.list, .table-list {
+  border: 1px solid var(--hj-line);
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--hj-radius-md);
+  overflow: hidden;
+  background: var(--hj-surface);
+}
+table.list th, .table-list-header {
+  background-color: var(--hj-surface-2);
+  color: var(--hj-text-2);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 9px 8px;
+  border-bottom: 1px solid var(--hj-line);
+}
+table.list th a, table.list th a:link, table.list th a:visited { color: var(--hj-text-2); }
+table.list td { border-top: 1px solid var(--hj-line); padding-top: 8px; padding-bottom: 8px; }
+table.list tbody tr:first-child td { border-top: 0; }
+table.list:not(.odd-even) tbody tr:nth-child(odd), table.list:not(.odd-even) tbody tr:nth-child(even),
+.odd, .even, #issue-changesets div.changeset:nth-child(odd), #issue-changesets div.changeset:nth-child(even) {
+  background-color: transparent;
+}
+table.list:not(.odd-even) tbody tr:nth-child(odd):hover, table.list:not(.odd-even) tbody tr:nth-child(even):hover,
+table.list tbody tr:hover, .odd:hover, .even:hover, tr.hascontextmenu:hover {
+  background-color: var(--hj-accent-softer);
+}
+table.list tbody tr.group:hover { background-color: transparent; }
+table.list tbody tr.context-menu-selection, table.list tbody tr.context-menu-selection:hover,
+tr.context-menu-selection, tr.context-menu-selection:hover {
+  background-color: var(--hj-accent-soft) !important;
+  color: var(--hj-text) !important;
+}
+tr.context-menu-selection a, tr.context-menu-selection td a { color: var(--hj-accent-text) !important; }
+tr.context-menu-selection svg.icon-svg { stroke: var(--hj-accent-text) !important; }
+tr.group td {
+  background-color: var(--hj-surface-2);
+  border-bottom: 1px solid var(--hj-line);
+  color: var(--hj-text);
+  font-weight: 600;
+  padding: 10px 10px 8px;
+}
+tr.group span.count {
+  background: var(--hj-accent-soft);
+  color: var(--hj-accent-text);
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+tr.group span.totals, tr.group a.toggle-all { color: var(--hj-text-3); }
+tr.group span.totals .value { color: var(--hj-text-2); }
+table.list td.id a { font-weight: 600; }
+tr.issue td.subject a { color: var(--hj-text); font-weight: 500; }
+tr.issue td.subject a:hover { color: var(--hj-accent-text); }
+tr.issue.closed td.subject a, tr.issue.closed td { color: var(--hj-text-3); }
+table.list tr.overdue:not(.context-menu-selection) td.due_date { color: var(--hj-danger); font-weight: 600; }
+table.issues td.block_column { color: var(--hj-text-2); }
+table.query-columns, table.query-columns td { border: 0; }
+table#time-report tbody tr.total, table.list tfoot tr { background-color: var(--hj-surface-2); border-top: 1px solid var(--hj-line); }
+table#time-report tbody tr.subtotal, table#time-report tbody tr.subtotal td.hours { color: var(--hj-text-2); }
+.query-totals { color: var(--hj-text-2); }
+.query-totals .value { color: var(--hj-text); }
+
+/* Pagination */
+span.pagination, .pagination { color: var(--hj-text-3); }
+.pagination ul.pages li { border: 0; margin-right: 4px; }
+.pagination ul.pages li a, .pagination ul.pages li span {
+  border-radius: var(--hj-radius-sm);
+  padding: 4px 10px;
+  border: 1px solid var(--hj-line);
+  background: var(--hj-surface);
+}
+.pagination ul.pages li:first-child, .pagination ul.pages li:last-child { border-radius: var(--hj-radius-sm); }
+.pagination ul.pages li.current span, .pagination ul.pages li.current {
+  background-color: var(--hj-accent);
+  border-color: var(--hj-accent);
+  color: var(--hj-on-accent);
+  border-radius: var(--hj-radius-sm);
+}
+.pagination ul.pages li.page:hover { background: transparent; }
+.pagination ul.pages li.page a:hover { background: var(--hj-accent-soft); color: var(--hj-accent-text); }
+
+/* Progress bars */
+table.progress { border-radius: 999px; overflow: hidden; border: 0; border-collapse: separate; height: 8px; }
+table.progress td { height: 8px !important; }
+table.progress td.closed { background: var(--hj-accent); }
+table.progress td.done { background: rgba(37, 99, 235, 0.45); }
+table.progress td.todo { background: var(--hj-line-strong); }
+p.progress-info, p.percent { color: var(--hj-text-3); }
+
+/* =========================================================================================
+   8. Tabs
+   ========================================================================================= */
+#content .tabs ul { border-bottom: 1px solid var(--hj-line); padding-left: 0; }
+#content .tabs ul li { margin-right: 2px; }
+#content .tabs ul li a, #content .tabs ul li a:link, #content .tabs ul li a:visited {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--hj-text-2);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 6px 12px 8px;
+}
+#content .tabs ul li a:hover { color: var(--hj-text); background: transparent; }
+#content .tabs ul li a.selected, #content .tabs ul li a.selected:hover {
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid var(--hj-accent);
+  color: var(--hj-accent-text);
+  box-shadow: none;
+}
+div.tabs-buttons { background: transparent; border-bottom: 1px solid var(--hj-line); }
+button.tab-left, button.tab-right { background-color: var(--hj-surface); border-color: var(--hj-line); }
+
+/* =========================================================================================
+   9. Issue page
+   ========================================================================================= */
+div.issue {
+  background: var(--hj-surface);
+  border: 1px solid var(--hj-line);
+  border-radius: var(--hj-radius);
+  box-shadow: none;
+  padding: 18px 22px;
+}
+div.issue div.subject h3 { font-size: 1.35rem; line-height: 1.35; letter-spacing: -0.02em; }
+div.issue div.subject p, div.issue .next-prev-links, div.issue p.author { color: var(--hj-text-3); }
+div.issue p.author a { color: var(--hj-text-2); }
+div.issue hr { margin: 14px 0; }
+div.issue .attributes { margin-top: 1.2em; }
+div.issue .attributes .attribute { min-height: 2em; }
+div.issue .attributes .attribute .label { color: var(--hj-text-3); font-weight: 500; }
+div.issue .attributes .attribute .value { color: var(--hj-text); }
+div.issue.overdue .due-date .value { color: var(--hj-danger); }
+span.badge, .badge {
+  border-radius: 999px;
+  padding: 1px 9px;
+  font-weight: 600;
+}
+.badge-status-open { color: var(--hj-accent-text); border-color: var(--hj-accent-ring); background: var(--hj-accent-softer); }
+.badge-status-closed { color: var(--hj-text-2); border-color: var(--hj-line-strong); background: var(--hj-hover); }
+.badge-private { color: var(--hj-danger-text); border-color: rgba(220, 38, 38, 0.35); background: var(--hj-danger-soft); }
+.badge-locked { color: var(--hj-text-2); border-color: var(--hj-line-strong); background: var(--hj-hover); }
+
+/* History */
+#history .tab-content { border: 0; box-shadow: none; padding: 0; }
+#history h3 { margin-top: 1.4em; }
+div.journal {
+  background: var(--hj-surface);
+  border: 1px solid var(--hj-line);
+  border-radius: var(--hj-radius-md);
+  padding: 2px 16px 6px;
+  margin-bottom: 10px;
+}
+div.journal h4.note-header, div.journal h4 {
+  border-bottom: 1px solid var(--hj-line);
+  color: var(--hj-text-2);
+  font-weight: 500;
+  padding: 8px 0 7px;
+  margin-bottom: 6px;
+}
+div.journal h4 a.user { color: var(--hj-text); font-weight: 700; }
+div.journal .journal-link { color: var(--hj-text-3); }
+#history div:target h4.note-header, #replies .reply:target h4.reply-header { background-color: var(--hj-accent-softer); }
+div.journal ul.details, ul.revision-info { color: var(--hj-text-3); margin-bottom: 0.6em; }
+div.journal ul.details a, ul.revision-info a { color: var(--hj-accent-text); }
+div.journal ul.details a:hover, ul.revision-info a:hover { color: var(--hj-accent-hover); }
+div.journal span.update-info { color: var(--hj-text-3); }
+div.journal.private-notes .wiki { border-left: 0; padding-left: 0; margin-left: 0; }
+div#issue-changesets { background: transparent; }
+#issue-changesets div.changeset { border-bottom: 1px solid var(--hj-line); }
+
+/* Edit form */
+#update { margin-top: 1.6em; }
+.jstElements {
+  background: var(--hj-surface-2);
+  border: 1px solid var(--hj-line-strong);
+  border-bottom: 0;
+  border-radius: var(--hj-radius-sm) var(--hj-radius-sm) 0 0;
+  padding: 4px 6px;
+}
+.jstEditor textarea.wiki-edit { border-top-left-radius: 0; border-top-right-radius: 0; }
+.jstElements button { background-color: transparent; border-color: transparent; box-shadow: none; height: 28px; width: 28px; padding: 0; }
+.jstElements button:hover { background-color: var(--hj-hover); border-color: transparent; }
+.jstHandle { background: var(--hj-surface-2); border-color: var(--hj-line); }
+html.hanji-dark .jstElements button svg, html.hanji-dark .jstElements button img { filter: invert(0.85); }
+.wiki-preview, div.wiki-preview {
+  background: var(--hj-surface);
+  border: 1px solid var(--hj-line);
+  border-radius: var(--hj-radius-sm);
+}
+
+/* Attachments */
+div.attachments, div.attachments .icon { color: var(--hj-text-2); }
+div.attachments span.author, div.attachments span.size { color: var(--hj-text-3); }
+div.thumbnails div { background: var(--hj-surface); border: 1px solid var(--hj-line); border-radius: var(--hj-radius-sm); overflow: hidden; }
+.attachments_fields input.filename, #existing-attachments .filename { color: var(--hj-text-2); background: transparent; }
+div.fileover, p.custom-field-filedroplistner.fileover { background-color: var(--hj-accent-soft); }
+
+/* =========================================================================================
+   10. Wiki content
+   ========================================================================================= */
+div.wiki { color: var(--hj-text); line-height: 1.7; }
+div.wiki h1, div.wiki h2, div.wiki h3, div.wiki h4 { letter-spacing: -0.02em; }
+div.wiki h1 { font-size: 1.75rem; }
+div.wiki h2 { font-size: 1.4rem; border-bottom: 1px solid var(--hj-line); padding-bottom: 6px; }
+div.wiki pre {
+  background: var(--hj-surface-2);
+  border: 1px solid var(--hj-line);
+  border-radius: var(--hj-radius-md);
+  padding: 12px 14px;
+  margin-left: 0;
+  margin-right: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+div.wiki *:not(pre) > code, div.wiki > code {
+  background: var(--hj-hover);
+  color: inherit;
+  padding: 0.12em 0.4em;
+  border-radius: 6px;
+  font-size: 0.88em;
+}
+div.wiki table, div.wiki table td, div.wiki table th { border-color: var(--hj-line-strong); }
+div.wiki table { border-collapse: collapse; }
+div.wiki table th { background: var(--hj-surface-2); color: var(--hj-text); }
+div.wiki table td, div.wiki table th { padding: 6px 12px; }
+div.wiki blockquote {
+  border-left: 3px solid var(--hj-line-strong);
+  padding: 2px 14px;
+  font-style: normal;
+  color: var(--hj-text-2);
+}
+div.wiki blockquote p { margin: 0.2em 0; }
+div.wiki a.new { color: var(--hj-danger); }
+div.wiki ul.toc {
+  background: var(--hj-surface);
+  border: 1px solid var(--hj-line);
+  border-radius: var(--hj-radius-md);
+  padding: 10px 16px;
+}
+div.wiki ul.toc a { color: var(--hj-text-2); }
+div.wiki ul.toc a:hover { color: var(--hj-accent-text); }
+div.wiki ul.toc > li:first-child { color: var(--hj-text-3); }
+a.wiki-anchor:hover { color: var(--hj-text-3) !important; }
+h1:hover a.wiki-anchor, h2:hover a.wiki-anchor, h3:hover a.wiki-anchor, h4:hover a.wiki-anchor { color: var(--hj-text-3); }
+.wiki-update-info, p.wiki-update-info { color: var(--hj-text-3); }
+div.wiki img { border-radius: 6px; }
+
+/* Code highlighting in dark mode (Rouge classes) */
+html.hanji-dark .syntaxhl .k, html.hanji-dark .syntaxhl .kd, html.hanji-dark .syntaxhl .kr, html.hanji-dark .syntaxhl .kn { color: #93c5fd; }
+html.hanji-dark .syntaxhl .s, html.hanji-dark .syntaxhl .s1, html.hanji-dark .syntaxhl .s2, html.hanji-dark .syntaxhl .sx { color: #86efac; background: transparent; }
+html.hanji-dark .syntaxhl .nf, html.hanji-dark .syntaxhl .nx, html.hanji-dark .syntaxhl .na { color: #c4b5fd; }
+html.hanji-dark .syntaxhl .c, html.hanji-dark .syntaxhl .c1, html.hanji-dark .syntaxhl .cm { color: #7c8aa0; }
+html.hanji-dark .syntaxhl .mi, html.hanji-dark .syntaxhl .mf, html.hanji-dark .syntaxhl .m { color: #fda4af; }
+html.hanji-dark .syntaxhl .nb, html.hanji-dark .syntaxhl .bp, html.hanji-dark .syntaxhl .nc { color: #67e8f9; }
+html.hanji-dark .syntaxhl .o, html.hanji-dark .syntaxhl .p { color: var(--hj-text-2); }
+
+/* Diffs */
+.diff_out { background: rgba(220, 38, 38, 0.14); }
+.diff_out span { background: rgba(220, 38, 38, 0.28); }
+.diff_in { background: rgba(5, 150, 105, 0.14); }
+.diff_in span { background: rgba(5, 150, 105, 0.28); }
+.highlight { background-color: var(--hj-highlight); }
+
+/* =========================================================================================
+   11. Calendar, Gantt, roadmap, activity, my page, projects
+   ========================================================================================= */
+table.cal { border-collapse: separate; border-spacing: 0; border: 1px solid var(--hj-line); border-radius: var(--hj-radius-md); overflow: hidden; }
+table.cal thead th { background-color: var(--hj-surface-2); color: var(--hj-text-2); border: 0; border-bottom: 1px solid var(--hj-line); padding: 8px 4px; }
+table.cal td { border: 0; border-right: 1px solid var(--hj-line); border-bottom: 1px solid var(--hj-line); }
+table.cal td.week-number { background-color: var(--hj-surface-2); color: var(--hj-text-3); }
+.cal .calbody.this-month { background-color: transparent; }
+.cal .calbody.other-month { background-color: var(--hj-hover); }
+.cal .calbody.other-month p.day-num { color: var(--hj-text-3); }
+.cal .calbody.nwday:not(.other-month) { background-color: var(--hj-surface-2); }
+.cal .calbody.today { background: var(--hj-accent-softer); }
+.cal .calbody.today p.day-num {
+  display: inline-block; float: right; min-width: 22px; text-align: center;
+  background: var(--hj-accent); color: var(--hj-on-accent); border-radius: 999px; font-weight: 700;
+}
+.cal .calbody p.day-num { color: var(--hj-text-2); }
+.cal div.issue, .cal .tooltip {
+  background: var(--hj-pop);
+  border: 1px solid var(--hj-line);
+  border-radius: 6px;
+  padding: 3px 6px;
+  margin-bottom: 3px;
+}
+html .tooltip span.tip {
+  background: var(--hj-pop);
+  color: var(--hj-text);
+  border: 1px solid var(--hj-line);
+  border-radius: var(--hj-radius-md);
+  box-shadow: var(--hj-shadow-pop);
+  padding: 8px 10px;
+}
+.tooltip span.tip a { color: var(--hj-accent-text) !important; }
+.tooltip:hover { color: var(--hj-text); }
+
+/* Gantt */
+.gantt_hdr { border-color: var(--hj-line-strong) !important; color: var(--hj-text-2); }
+.gantt_hdr.nwday { background-color: var(--hj-hover); color: var(--hj-text-3); }
+.gantt_subjects div.issue-subject:hover, .gantt_selected_column_content div:hover { background-color: var(--hj-accent-softer); }
+.task_todo { background: var(--hj-line-strong) none; border-color: transparent; border-radius: 3px; }
+.task_done { background: var(--hj-accent) none; border-color: var(--hj-accent); border-radius: 3px 0 0 3px; }
+.task_late { background: var(--hj-danger) none; border-color: var(--hj-danger); border-radius: 3px 0 0 3px; }
+.task_todo.parent { background: var(--hj-text-3); }
+div.gantt_subjects, div.gantt_subjects a { color: var(--hj-text); }
+#today_line { border-left-color: var(--hj-danger) !important; }
+
+/* Roadmap / versions */
+#roadmap .version-article, div#roadmap article.version-article {
+  background: var(--hj-surface);
+  border: 1px solid var(--hj-line);
+  border-radius: var(--hj-radius-md);
+  padding: 4px 18px 14px;
+  margin-bottom: 14px;
+}
+div#version-summary { background: transparent; }
+table.related-issues { border: 0; }
+table.related-issues td { border-color: var(--hj-line); }
+
+/* Activity, search, news */
+div#activity dt .time { color: var(--hj-text-3); }
+div#activity dd, #search-results dd, div#activity dd span.description, #search-results dd span.description { color: var(--hj-text-2); }
+div#activity h3 { color: var(--hj-text-2); font-size: 1rem; border-bottom: 1px solid var(--hj-line); padding-bottom: 4px; }
+div#activity dt.me .time { border-bottom-color: var(--hj-line-strong); }
+#search-results-counts a { color: var(--hj-text-2); }
+
+/* Projects list */
+#projects-index ul.projects li.root {
+  background: var(--hj-surface);
+  border: 1px solid var(--hj-line);
+  border-radius: var(--hj-radius-md);
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+#projects-index ul.projects li.root ul.projects { border-left: 0; padding-left: 18px; }
+#projects-index a.project { font-weight: 700; font-size: 1.05rem; }
+#projects-index .wiki.description { color: var(--hj-text-2); }
+ul.projects div.archived { color: var(--hj-text-3); }
+
+/* My page blocks */
+.mypage-box {
+  background: var(--hj-surface);
+  border: 1px solid var(--hj-line);
+  border-radius: var(--hj-radius-md);
+  padding: 4px 14px 12px;
+  margin-bottom: 14px;
+}
+.mypage-box h3 { font-size: 1rem; color: var(--hj-text); }
+.block-receiver { border-color: var(--hj-line-strong); border-radius: var(--hj-radius-md); }
+
+/* Project overview */
+.box h3 { font-size: 1rem; margin-top: 2px; }
+ul.properties { color: var(--hj-text-2); }
+table.issue-report tr.total, table.issue-report-detailed tr.total { border-top: 1px solid var(--hj-line-strong); }
+
+/* Permissions / workflow tables (admin) */
+table.transitions td.enabled { background: var(--hj-success-soft); }
+table.fields_permissions td.readonly { background: var(--hj-hover); }
+table.fields_permissions td.required { background: var(--hj-danger-soft); }
+table.permissions td.role { color: var(--hj-text-3); }
+
+/* =========================================================================================
+   12. Pop-ups: context menu, dialogs, autocomplete, tooltips
+   ========================================================================================= */
+#context-menu ul, #context-menu li > ul {
+  background: var(--hj-pop) !important;
+  border: 1px solid var(--hj-line) !important;
+  border-radius: var(--hj-radius-md);
+  box-shadow: var(--hj-shadow-pop);
+  padding: 4px;
+}
+#context-menu li { border: 0 !important; border-radius: var(--hj-radius-sm); }
+#context-menu li:hover, #context-menu li.folder:hover { background: var(--hj-accent-soft) !important; border: 0 !important; }
+#context-menu a { color: var(--hj-text) !important; border-radius: var(--hj-radius-sm); }
+#context-menu li:hover > a, #context-menu a:hover { color: var(--hj-accent-text) !important; background: transparent !important; }
+#context-menu a.disabled, #context-menu a.disabled:hover { color: var(--hj-text-3) !important; }
+#context-menu svg.icon-svg { stroke: currentColor; }
+
+.ui-widget, .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: var(--hj-font); }
+.ui-widget-content {
+  background: var(--hj-pop);
+  color: var(--hj-text);
+  border: 1px solid var(--hj-line);
+}
+.ui-widget-content a { color: var(--hj-accent-text); }
+.ui-widget-header { background: transparent; border: 0; color: var(--hj-text); font-weight: 700; }
+.ui-dialog {
+  border-radius: var(--hj-radius) !important;
+  box-shadow: var(--hj-shadow-pop);
+  padding: 6px;
+}
+.ui-dialog .ui-dialog-titlebar { border-bottom: 1px solid var(--hj-line); border-radius: 0; padding: 10px 14px; }
+.ui-dialog .ui-dialog-content { padding: 14px; }
+.ui-dialog .ui-dialog-buttonpane { border-top: 1px solid var(--hj-line); background: transparent; }
+.ui-widget-overlay { background: rgba(15, 23, 42, 0.45); opacity: 1; }
+.ui-menu, .ui-autocomplete {
+  background: var(--hj-pop) !important;
+  border: 1px solid var(--hj-line) !important;
+  border-radius: var(--hj-radius-md) !important;
+  box-shadow: var(--hj-shadow-pop);
+  padding: 4px !important;
+}
+.ui-menu .ui-menu-item-wrapper, .ui-menu .ui-menu-item a { border-radius: var(--hj-radius-sm); color: var(--hj-text); border: 0 !important; }
+.ui-menu .ui-state-focus, .ui-menu .ui-state-active, .ui-state-hover, .ui-widget-content .ui-state-hover {
+  background: var(--hj-accent-soft) !important;
+  color: var(--hj-accent-text) !important;
+  border: 0 !important;
+  margin: 0 !important;
+}
+.ui-datepicker { padding: 8px; }
+.ui-datepicker td a, .ui-datepicker td span { text-align: center; border-radius: 6px; }
+.ui-datepicker .ui-state-default { background: transparent; border: 0; color: var(--hj-text); }
+.ui-datepicker .ui-state-highlight { background: var(--hj-accent-softer) !important; color: var(--hj-accent-text) !important; border: 0; }
+.ui-datepicker .ui-state-active { background: var(--hj-accent) !important; color: var(--hj-on-accent) !important; }
+html.hanji-dark .ui-icon { filter: invert(1); }
+html.hanji-dark .ui-datepicker-trigger { filter: invert(0.85); }
+div.modal { background: var(--hj-pop); border-radius: var(--hj-radius); }
+.tribute-container ul {
+  background: var(--hj-pop);
+  border: 1px solid var(--hj-line);
+  border-radius: var(--hj-radius-md);
+  box-shadow: var(--hj-shadow-pop);
+  padding: 4px;
+}
+.tribute-container li { color: var(--hj-text); border-radius: var(--hj-radius-sm); }
+.tribute-container li.highlight { background: var(--hj-accent-soft); color: var(--hj-accent-text); }
+#ajax-indicator {
+  background: var(--hj-pop);
+  border: 1px solid var(--hj-line);
+  border-radius: 999px;
+  box-shadow: var(--hj-shadow-pop);
+  color: var(--hj-text);
+}
+
+/* =========================================================================================
+   13. Login page
+   ========================================================================================= */
+#login-form {
+  width: 380px;
+  margin: 6vh auto 2em;
+  padding: 28px 30px 24px;
+  background: var(--hj-card);
+  border: 1px solid var(--hj-card-border);
+  border-radius: 22px;
+  box-shadow: var(--hj-shadow);
+}
+#login-form label { color: var(--hj-text-2); font-weight: 600; font-size: 0.9rem; }
+#login-form input { height: 40px; }
+#login-form input[type=text], #login-form input[type=password] { margin-bottom: 16px; }
+#login-form input[type=checkbox] { height: auto; }
+#login-form input#login-submit { height: 42px; font-size: 1rem; margin-top: 8px; border-radius: 10px; }
+#login-form a.lost_password { font-weight: 500; font-size: 0.85rem; }
+#login-form h3 { margin-top: 0; font-size: 1.15rem; }
+body.controller-account.action-login #content,
+body.controller-account.action-lost_password #content,
+body.controller-account.action-register #content {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+
+/* =========================================================================================
+   14. Plugins
+   ========================================================================================= */
+/* redmine_web_notifications */
+a.web-notifications-bell { padding: 4px 6px !important; border-radius: var(--hj-radius-sm); }
+a.web-notifications-bell svg { stroke: var(--hj-text-2); }
+a.web-notifications-bell:hover svg { stroke: var(--hj-text); }
+.web-notifications-badge { background: var(--hj-danger); box-shadow: 0 0 0 2px var(--hj-pop); top: -2px; right: -2px; }
+.web-notifications-panel {
+  background: var(--hj-pop);
+  color: var(--hj-text);
+  border: 1px solid var(--hj-line);
+  border-radius: var(--hj-radius-md);
+  box-shadow: var(--hj-shadow-pop);
+  overflow: hidden;
+  line-height: 1.45;
+}
+.web-notifications-panel a { margin: 0 !important; }
+.web-notifications-panel-header, .web-notifications-panel-footer { border-color: var(--hj-line) !important; }
+
+/* redmine_issues_panel (kanban) */
+.issue-card {
+  background: var(--hj-pop) !important;
+  color: var(--hj-text);
+  border: 1px solid var(--hj-line) !important;
+  border-radius: var(--hj-radius-md) !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06) !important;
+}
+.issue-card:hover { border-color: var(--hj-accent-ring) !important; }
+.issue-card.context-menu-selection { background: var(--hj-accent-soft) !important; }
+
+/* redmine_checklists */
+#checklist_items li { border-radius: var(--hj-radius-sm); padding: 2px 4px; }
+#checklist_items li:hover { background: var(--hj-hover); }
+
+/* redmine_wysiwyg_editor: the editing area stays white paper in dark mode (like an email body) */
+.tox.tox-tinymce, .mce-tinymce { border-radius: var(--hj-radius-sm) !important; border-color: var(--hj-line-strong) !important; overflow: hidden; }
+
+/* =========================================================================================
+   15. Dark-mode touch-ups for images and fixed colors in the base stylesheet
+   ========================================================================================= */
+html.hanji-dark #sidebar-switch-button:hover, html.hanji-dark .tab-left:hover, html.hanji-dark .tab-right:hover { background-color: var(--hj-hover); }
+html.hanji-dark .task.parent.marker, html.hanji-dark .version.marker, html.hanji-dark .project.marker { filter: invert(0.85); }
+html.hanji-dark tr.changeset td.revision_graph { background-color: transparent; }
+html.hanji-dark .filecontent, html.hanji-dark table.filecontent th.line-num, html.hanji-dark table.filecontent td.line-code {
+  background-color: var(--hj-surface); color: var(--hj-text); border-color: var(--hj-line);
+}
+html.hanji-dark table.filecontent th.line-num { color: var(--hj-text-3); }
+
+/* =========================================================================================
+   15b. Fixed colors from Redmine views and plugins
+   ========================================================================================= */
+.syntaxhl { background: transparent; }
+a.user.user-mention {
+  background: var(--hj-accent-soft);
+  color: var(--hj-accent-text);
+  padding: 0.05em 0.35em;
+  border-radius: 6px;
+  font-weight: 600;
+}
+table.list, .table-list { font-size: 0.875rem; }
+/* Gantt: header strips are painted #eee inline */
+.gantt_hdr[style*="#eee"] { background: var(--hj-surface-2) !important; }
+.gantt_hdr { border-color: var(--hj-line-strong) !important; }
+
+/* redmine_issues_panel (its stylesheet loads after the theme, hence `html`) */
+html table.issues-panel { border: 1px solid var(--hj-line); border-radius: var(--hj-radius-md); background: transparent; }
+html table.issues-panel th { background-color: var(--hj-surface-2); color: var(--hj-text-2); border: 0; border-bottom: 1px solid var(--hj-line); padding: 9px 6px; }
+html table.issues-panel td { background-color: var(--hj-hover); border: 0; border-right: 1px solid var(--hj-line); }
+html table.issues-panel td:last-child { border-right: 0; }
+.issue-card-1-1 { padding: 10px 12px; margin: 4px 6px 8px; width: auto; }
+.issue-card .closed { background-color: transparent; }
+/* The plugin marks priority with a colored stripe on the card's left edge; the priority is already written on the card */
+html .issue-card div[class*="priority-"] { box-shadow: none; }
+html .issue-card { background-color: var(--hj-pop); border-color: var(--hj-line); color: var(--hj-text-2); }
+html .issue-card .closed { background-color: transparent; }
+html td > .issue-cards > .add-issue-card { background-color: var(--hj-surface); }
+.issue-card, .issue-card .card-content { color: var(--hj-text-2); }
+.issue-card .card-content strong, .issue-card .caption strong { color: var(--hj-text); font-weight: 600; }
+td > .issue-cards > .add-issue-card { background-color: var(--hj-surface); border: 1px dashed var(--hj-line-strong) !important; border-radius: var(--hj-radius-md); }
+#issue_panel_issue_description, #issue_panel_issue_description .issue {
+  background-color: var(--hj-pop);
+  color: var(--hj-text);
+  border-color: var(--hj-line);
+  border-radius: var(--hj-radius-md);
+}
+#issue_panel_issue_description { box-shadow: var(--hj-shadow-pop); }
+
+/* My page: no white dashed frames around blocks */
+.block-receiver { border-color: transparent; border-radius: var(--hj-radius-md); }
+.dragging .block-receiver { border-color: var(--hj-line-strong); }
+.mypage-box { color: var(--hj-text); }
+.mypage-box { position: relative; }
+/* The block's hidden action links float right and squeeze the table next to them */
+.mypage-box > .contextual { position: absolute; top: 10px; right: 14px; margin: 0; }
+
+/* redmineup (bundled with redmine_checklists) loads after the theme and repaints the calendar and
+   its select2 widgets, hence `html` */
+html .cal .calhead { background-color: var(--hj-surface-2); color: var(--hj-text-2); border-bottom: 1px solid var(--hj-line); font-weight: 600; padding: 8px 4px; }
+html .cal .week-number { background-color: var(--hj-surface-2); color: var(--hj-text-3); }
+html .cal .calbody { border-color: var(--hj-line); box-shadow: none; }
+html .cal .calbody.today { background: var(--hj-accent-softer); }
+html .cal .calbody.nwday:not(.odd):not(.other-month) { background-color: var(--hj-surface-2); }
+html .cal .calbody.nwday.other-month { background-color: var(--hj-hover); }
+html .cal .calbody.odd p.day-num { color: var(--hj-text-3); }
+html ul.cal { border-color: var(--hj-line); border-radius: var(--hj-radius-md); overflow: hidden; box-shadow: none; }
+html .select2-container--default .select2-selection--single,
+html .select2-container--default .select2-selection--multiple {
+  background-color: var(--hj-field);
+  border: 1px solid var(--hj-line-strong);
+  border-radius: var(--hj-radius-sm);
+}
+html .select2-container--default .select2-selection--single .select2-selection__rendered { color: var(--hj-text); }
+html .select2-container--default .select2-selection--multiple .select2-selection__choice { background-color: var(--hj-hover); border-color: var(--hj-line); color: var(--hj-text); border-radius: 6px; }
+html .select2-dropdown { background-color: var(--hj-pop); border-color: var(--hj-line); color: var(--hj-text); border-radius: var(--hj-radius-sm); }
+html .select2-search--dropdown .select2-search__field { background-color: var(--hj-field); color: var(--hj-text); border-color: var(--hj-line-strong); }
+html .select2-container--default .select2-results__option[aria-selected=true] { background-color: var(--hj-hover); }
+html .select2-container--default .select2-results__option--highlighted[aria-selected] { background-color: var(--hj-accent-soft); color: var(--hj-accent-text); }
+
+/* Header: keep the project jump inside the page edge */
+#project-jump .drdn-trigger { box-sizing: border-box; }
+#quick-search { margin-right: 4px; }
+table.list td.checkbox input, table.list th.checkbox input { margin: 0; vertical-align: middle; }
+
+/* =========================================================================================
+   16. Light/dark toggle button (inserted by javascripts/theme.js)
+   ========================================================================================= */
+#account li.hanji-theme-toggle-item { vertical-align: middle; }
+#top-menu a#hanji-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 28px;
+  padding: 0;
+  margin: 0 2px 0 0;
+  vertical-align: middle;
+  border-radius: var(--hj-radius-sm);
+  color: var(--hj-text-2);
+}
+#top-menu a#hanji-theme-toggle:hover { background: var(--hj-hover); color: var(--hj-text); }
+#hanji-theme-toggle:focus-visible { outline: 2px solid var(--hj-accent); outline-offset: 2px; }
+#hanji-theme-toggle svg { display: block; flex: none; }
+.hanji-theme-toggle-label { display: none; }
+.flyout-menu a#hanji-theme-toggle { display: flex; align-items: center; gap: 10px; }
+.flyout-menu .hanji-theme-toggle-label { display: inline; }
+
+/* =========================================================================================
+   17. Phones and narrow windows (Redmine switches to its mobile layout below 900px)
+   Redmine loads responsive.css after the theme, so these rules start with `html`
+   to win over it without !important.
+   ========================================================================================= */
+@media screen and (max-width: 899px) {
+  html #header {
+    background: var(--hj-card);
+    border-bottom: 1px solid var(--hj-card-border);
+    box-shadow: 0 1px 0 var(--hj-line), 0 4px 20px rgba(15, 23, 42, 0.06);
+  }
+  html #project-jump .drdn-trigger {
+    color: var(--hj-text);
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding-right: 0;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    box-shadow: none;
+  }
+  html #project-jump .drdn-trigger:before { color: var(--hj-text-2); }
+  html #project-jump .drdn-content { top: 60px; left: 8px; width: calc(100% - 16px); }
+  html #header a.mobile-toggle-button { color: var(--hj-text); border-left: 0; }
+  html #header a.mobile-toggle-button:hover { background: var(--hj-hover); }
+  html #main { padding: 74px 10px 10px; gap: 0; }
+  html #content { padding: 16px 16px 20px; border-radius: 16px; }
+  html.flyout-is-active #main { padding: 74px 10px 10px; }
+  #content h2 { font-size: 1.25rem; }
+  #footer { padding: 8px 12px 16px; }
+
+  /* Slide-out menu */
+  html .flyout-menu {
+    background: var(--hj-pop);
+    color: var(--hj-text);
+    border-left: 1px solid var(--hj-line);
+  }
+  html .flyout-menu a, html .flyout-menu ul li a, html .flyout-menu__avatar a { color: var(--hj-text); }
+  html .flyout-menu ul li a, html .flyout-menu__avatar,
+  html .flyout-menu #watchers ul li, html .flyout-menu ul.queries li,
+  html .flyout-menu__sidebar form > ul li { border-top-color: var(--hj-line); }
+  html .flyout-menu ul li a:hover { background: var(--hj-hover); }
+  html .flyout-menu ul li a.selected { background: var(--hj-accent-soft); color: var(--hj-accent-text); }
+  html .flyout-menu h3, html .flyout-menu h4 {
+    background: var(--hj-surface-2);
+    color: var(--hj-text-3);
+    border-color: var(--hj-line);
+    font-weight: 700;
+  }
+  html .flyout-menu__search input[type='text'] { background: var(--hj-field); color: var(--hj-text); border: 1px solid var(--hj-line-strong); border-radius: var(--hj-radius-sm); }
+  html .flyout-menu svg.icon-svg, html .flyout-menu .icon svg { stroke: currentColor; }
+  html .flyout-menu a#hanji-theme-toggle { padding-top: 12px; padding-bottom: 12px; }
+
+  /* Action links above the content become buttons */
+  html #content > .contextual > a, html #content > .contextual .drdn, html p.buttons a {
+    border: 1px solid var(--hj-line-strong);
+    border-radius: 10px;
+    background: var(--hj-surface);
+    font-weight: 600;
+    padding: 7px 10px;
+  }
+  html p.buttons a.icon-checked { background: var(--hj-accent); border-color: var(--hj-accent); color: var(--hj-on-accent); }
+
+  /* iOS: 16px inputs avoid the zoom-in on focus; larger touch targets */
+  input[type=text], input[type=password], input[type=email], input[type=number], input[type=date], input[type=search], select, textarea { font-size: 16px; }
+  html input, html select { min-height: 40px; }
+  html input[type=checkbox], html input[type=radio] { min-height: 0; }
+  #content #all_attributes input[type=text], #content #all_attributes select, #content textarea, #issue_subject { max-width: 100%; box-sizing: border-box; }
+
+  /* Issue list: table → cards */
+  div.autoscroll { overflow-x: hidden; }
+  table.list.issues { display: block; width: 100%; border: 0; background: transparent; border-radius: 0; overflow: visible; }
+  table.list.issues > thead { display: none; }
+  table.list.issues > tbody { display: block; }
+  table.list.issues tr.issue {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px;
+    margin: 0 0 10px; padding: 12px 14px;
+    background: var(--hj-surface);
+    border: 1px solid var(--hj-line);
+    border-radius: var(--hj-radius-md);
+    width: auto; height: auto;
+  }
+  table.list.issues tr.issue > td {
+    display: block; border: 0; padding: 0; width: auto; max-width: 100%;
+    text-align: left; white-space: normal; height: auto;
+    font-size: 0.85rem; color: var(--hj-text-2); background: transparent;
+  }
+  table.list.issues tr.issue > td:empty,
+  table.list.issues tr.issue > td.checkbox,
+  table.list.issues tr.issue > td.buttons { display: none; }
+  table.list.issues tr.issue > td.subject {
+    order: 1; flex: 1 0 100%; min-width: 0;
+    font-size: 1rem; font-weight: 600; line-height: 1.4; overflow-wrap: anywhere;
+  }
+  table.list.issues tr.issue > td.subject a { color: var(--hj-text); }
+  table.list.issues tr.issue > td.id { order: 2; font-size: 0.85rem; }
+  table.list.issues tr.issue > td.status,
+  table.list.issues tr.issue > td.priority,
+  table.list.issues tr.issue > td.tracker,
+  table.list.issues tr.issue > td.project { order: 2; }
+  table.list.issues tr.issue > td.status {
+    background: var(--hj-accent-soft); color: var(--hj-accent-text);
+    border-radius: 999px; padding: 1px 9px; font-weight: 600;
+  }
+  table.list.issues tr.issue.closed > td.status { background: var(--hj-hover); color: var(--hj-text-2); }
+  table.list.issues tr.issue > td.assigned_to { order: 3; }
+  table.list.issues tr.issue > td.updated_on { order: 4; margin-left: auto; }
+  html[lang="ko"] table.list.issues tr.issue > td.assigned_to::before { content: "담당 "; color: var(--hj-text-3); }
+  html[lang="ko"] table.list.issues tr.issue > td.updated_on::before { content: "변경 "; color: var(--hj-text-3); }
+  table.list.issues tr.issue > td:not(.id):not(.subject):not(.status):not(.priority):not(.tracker):not(.project):not(.assigned_to):not(.updated_on) { order: 5; }
+  table.list.issues tr.issue > td.description, table.list.issues tr.issue > td.last_notes { order: 9; flex: 1 0 100%; }
+  table.list.issues tr.group { display: block; }
+  table.list.issues tr.group > td { display: block; border-radius: var(--hj-radius-sm); margin-bottom: 8px; }
+  table.list.issues tr.issue.context-menu-selection { background: var(--hj-accent-soft) !important; }
+
+  /* Issue page */
+  div.issue { padding: 14px; border-radius: 14px; }
+  div.issue .attributes .attribute .label { width: 38%; }
+  div.issue .attributes .attribute .value { width: 62%; }
+  div.issue .attributes .attribute .value table.progress { width: 110px; }
+  div.issue .subject h3 { font-size: 1.2rem; overflow-wrap: anywhere; }
+  div.issue div.description, div.journal, div.wiki { overflow-wrap: anywhere; }
+  div.issue pre, div.journal pre, div.wiki pre, div.issue table, div.journal table, div.wiki table { max-width: 100%; overflow-x: auto; display: block; }
+  div.issue img, div.journal img, div.wiki img { max-width: 100%; height: auto; }
+  div.journal { padding: 2px 12px 6px; }
+
+  html #login-form { width: auto; margin: 4vh 4px 2em; padding: 22px 20px; }
+  html .cal .week-number { background-color: var(--hj-surface-2); border-color: var(--hj-line); }
+}
+
+/* =========================================================================================
+   18. Print: plain white paper
+   ========================================================================================= */
+@media print {
+  html, body { background: #fff !important; color: #000 !important; }
+  #content, #sidebar, div.issue, div.journal, .box {
+    background: #fff !important;
+    -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+    box-shadow: none !important;
+    border-color: #ccc !important;
+  }
+  #hanji-theme-toggle { display: none !important; }
+}
