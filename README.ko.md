@@ -80,6 +80,30 @@ services:
 - 휴대폰 일감 카드의 "담당", "변경" 머리말은 한국어 화면에서만 붙습니다.
 - 다른 플러그인 화면에서는 기본 색이 남는 곳이 있을 수 있습니다. 발견하면 이슈로 알려 주세요.
 
+## AI 도우미로 설치하기
+
+아래 프롬프트를 복사해서, Redmine 서버에서 명령을 실행할 수 있는 AI 코딩 도우미(Claude Code, Codex 등)에 붙여 넣으세요.
+
+```text
+이 서버의 Redmine 에 "Hanji Redmine Theme" 를 설치해 줘.
+
+저장소: https://github.com/IrumAcademy/Redmine-Hanji-Theme
+
+순서:
+1. Redmine 이 어떻게 설치돼 있는지 찾아. 직접 설치(Redmine 폴더 안에 themes/ 가 있음)인지,
+   Docker(공식 redmine 이미지, docker-compose.yml)인지 확인하고, 모르겠으면 나에게 물어봐.
+   Redmine 버전이 6 인지도 확인해.
+2. 저장소를 themes/hanji 라는 이름으로 clone 해. Docker 라면 compose 파일 옆에 clone 하고,
+   redmine 서비스에 ./themes/hanji:/usr/src/redmine/themes/hanji:ro 마운트를 추가해.
+   compose 파일을 고치기 전에 백업을 만들어.
+3. stylesheets/application.css 와 javascripts/theme.js 를 읽어서 외부 네트워크 요청이 없는지 확인해.
+   (한지 질감은 CSS 안의 data: SVG 라서 외부 요청이 아니야.)
+4. Redmine 을 재시작해 (Docker 면 docker compose up -d <redmine 서비스>). 다른 서비스는 건드리지 마.
+5. 로그에 에셋 오류가 없는지 확인해.
+6. 관리 → 설정 → 표시방식 → 테마 에서 "Hanji" 를 고르라고 안내하고,
+   되돌리는 방법(테마를 원래 값으로 바꾸고, 마운트와 폴더를 지우는 것)을 알려 줘.
+```
+
 ## 라이선스
 
 [MIT](LICENSE) © 2026 IrumAcademy

@@ -80,6 +80,29 @@ Edit the two token blocks at the top of `stylesheets/application.css`. `:root` i
 - On phones, the "assignee" and "updated" labels on issue cards only appear in the Korean interface.
 - Pages from other plugins may still show some default colors. Please open an issue if you find one.
 
+## Installing with an AI assistant
+
+Copy the prompt below into an AI coding assistant (Claude Code, Codex and so on) that can run commands on your Redmine server.
+
+```text
+Install the "Hanji Redmine Theme" on this server's Redmine.
+
+Repository: https://github.com/IrumAcademy/Redmine-Hanji-Theme
+
+Steps:
+1. Find out how Redmine is installed: directly (a Redmine folder with a themes/ directory) or with Docker
+   (the official redmine image and a docker-compose.yml). If unsure, ask me. Check that it is Redmine 6.
+2. Clone the repository as themes/hanji. For Docker, clone it next to the compose file and add the mount
+   ./themes/hanji:/usr/src/redmine/themes/hanji:ro to the redmine service.
+   Back up the compose file before you edit it.
+3. Read stylesheets/application.css and javascripts/theme.js and check that they make no external network requests.
+   (The hanji texture is an inline data: SVG in the CSS, not a request.)
+4. Restart Redmine (for Docker: docker compose up -d <redmine service>). Leave other services alone.
+5. Check the logs for asset errors.
+6. Tell me to pick "Hanji" in Administration → Settings → Display → Theme, and how to undo it
+   (set the theme back, then remove the mount and the folder).
+```
+
 ## License
 
 [MIT](LICENSE) © 2026 IrumAcademy
