@@ -215,7 +215,7 @@ svg.icon-svg { stroke: var(--hj-accent-text); }
   color: var(--hj-text);
   width: 220px;
 }
-#project-jump.expanded .drdn-trigger, #project-jump .drdn.expanded .drdn-trigger { background-image: var(--hj-chevron); }
+#project-jump.expanded .drdn-trigger, #project-jump .drdn.expanded .drdn-trigger { background-image: var(--hj-chevron); background-repeat: no-repeat; }
 #project-jump .drdn-content { top: 40px; }
 #project-jump .drdn-items > * { color: var(--hj-text) !important; }
 #project-jump .drdn-items > a:hover { background-color: var(--hj-accent-soft); color: var(--hj-accent-text) !important; }
@@ -1169,6 +1169,7 @@ table.list td.checkbox input, table.list th.checkbox input { margin: 0; vertical
     box-shadow: none;
   }
   html #project-jump .drdn-trigger:before { color: var(--hj-text-2); }
+  html #project-jump.expanded .drdn-trigger, html #project-jump .drdn.expanded .drdn-trigger { background-image: none; }
   html #project-jump .drdn-content { top: 60px; left: 8px; width: calc(100% - 16px); }
   html #header a.mobile-toggle-button { color: var(--hj-text); border-left: 0; }
   html #header a.mobile-toggle-button:hover { background: var(--hj-hover); }
