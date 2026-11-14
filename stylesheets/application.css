@@ -1157,7 +1157,9 @@ nav.top-menu { background: transparent; color: var(--hj-text-2); min-height: 29p
 .top-menu .profile-menu { display: flex; align-items: center; gap: 2px; min-height: 28px; }
 .top-menu .profile-menu > a#hanji-theme-toggle { margin: 0; }
 /* The second toggle in the account drop-down is only for the slide-out menu on phones */
-#account .dropdown-content li.hanji-theme-toggle-item { display: none; }
+.top-menu .profile-menu #account li.hanji-theme-toggle-item { display: none; }
+/* Logged out, #account is a plain list ("Sign in", "Register") */
+.top-menu .profile-menu #account.top-menu__links > ul { display: flex; align-items: center; margin: 0; padding: 0; }
 #top-menu #account.dropdown .dropdown-trigger {
   display: inline-flex;
   align-items: center;
@@ -1343,6 +1345,15 @@ div#sticky-issue-header {
 }
 html.hanji-dark div#sticky-issue-header { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35); }
 div#sticky-issue-header .issue-heading { color: var(--hj-text-2); }
+
+/* Icons in links: Redmine 7 paints them dark blue (red on hover); keep them in the link color */
+a.icon .icon-svg, a.icon-only .icon-svg, span.icon-actions .icon-svg { stroke: var(--hj-accent-text); }
+a.icon:hover .icon-svg, a.icon-only:hover .icon-svg, span.icon-actions:hover .icon-svg { stroke: var(--hj-accent-hover); }
+svg.icon-svg-filled, a.icon .icon-svg-filled, a.icon-only .icon-svg-filled { fill: var(--hj-accent-text); stroke: none; }
+a.icon:hover .icon-svg-filled, a.icon-only:hover .icon-svg-filled { fill: var(--hj-accent-hover); stroke: none; }
+a.icon-ok .icon-svg, .icon-ok svg.icon-svg { stroke: var(--hj-success); }
+a.icon-error .icon-svg, .icon-error svg.icon-svg { stroke: var(--hj-danger); }
+a.icon-warning .icon-svg, .icon-warning svg.icon-svg { stroke: var(--hj-warning); }
 
 /* Reactions (thumbs up) */
 .reaction-button .icon-label { color: var(--hj-text-2); }
