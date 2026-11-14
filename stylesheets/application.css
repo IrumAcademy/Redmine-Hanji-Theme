@@ -1153,7 +1153,7 @@ a.hanji-theme-toggle svg { display: block; flex: none; }
    Redmine 7 markup, so Redmine 6 keeps the rules above unchanged.
    ========================================================================================= */
 /* Top bar: links on the left, [theme toggle][bell][avatar] on the right */
-nav.top-menu { background: transparent; color: var(--hj-text-2); }
+nav.top-menu { background: transparent; color: var(--hj-text-2); min-height: 29px; }
 .top-menu .profile-menu { display: flex; align-items: center; gap: 2px; min-height: 28px; }
 .top-menu .profile-menu > a#hanji-theme-toggle { margin: 0; }
 /* The second toggle in the account drop-down is only for the slide-out menu on phones */
@@ -1209,7 +1209,7 @@ nav.top-menu { background: transparent; color: var(--hj-text-2); }
 
 /* Header and project menu: underline tabs on the paper, no band */
 body.has-main-menu #header { padding-bottom: 64px; }
-#header h1 { padding: 2px 10px 1px 0; }
+#header h1 { padding: 2px 10px 1px 0; min-height: 0; }
 #quick-search { min-height: 0; }
 #main-menu.tabs { background: transparent; padding: 0; }
 #main-menu.tabs > ul { min-height: 0; align-items: flex-end; }
@@ -1225,6 +1225,146 @@ body.has-main-menu #header { padding-bottom: 64px; }
 }
 #main-menu.tabs .menu-children { border: 1px solid var(--hj-line); }
 #main-menu.tabs .menu-children li a, #main-menu.tabs .menu-children li a:link { line-height: 1.45; border-bottom: 0; }
+
+/* Initials avatars: soft plant-dye tints instead of Redmine's saturated colors */
+:root {
+  --hj-av0-bg: #f1dbd2; --hj-av0-fg: #8c3b24;
+  --hj-av1-bg: #f1e2c6; --hj-av1-fg: #7f5410;
+  --hj-av2-bg: #ebe4c3; --hj-av2-fg: #625510;
+  --hj-av3-bg: #dae6d4; --hj-av3-fg: #335f35;
+  --hj-av4-bg: #d2e7e3; --hj-av4-fg: #0f5f58;
+  --hj-av5-bg: #d9e0ec; --hj-av5-fg: #33507a;
+  --hj-av6-bg: #e6dae7; --hj-av6-fg: #683e6e;
+  --hj-av7-bg: #f0d9de; --hj-av7-fg: #8a3448;
+}
+html.hanji-dark {
+  --hj-av0-bg: rgba(214, 120, 90, 0.24); --hj-av0-fg: #f0b6a3;
+  --hj-av1-bg: rgba(214, 160, 80, 0.24); --hj-av1-fg: #ecc78d;
+  --hj-av2-bg: rgba(200, 180, 90, 0.24); --hj-av2-fg: #e2d491;
+  --hj-av3-bg: rgba(120, 180, 120, 0.24); --hj-av3-fg: #acd6a8;
+  --hj-av4-bg: rgba(76, 184, 170, 0.24); --hj-av4-fg: #93d5cb;
+  --hj-av5-bg: rgba(120, 150, 210, 0.24); --hj-av5-fg: #b5c5e7;
+  --hj-av6-bg: rgba(180, 130, 190, 0.24); --hj-av6-fg: #d9b8de;
+  --hj-av7-bg: rgba(220, 120, 140, 0.24); --hj-av7-fg: #efb3c0;
+}
+span[role="img"].avatar { font-family: var(--hj-font); font-weight: 700; letter-spacing: -0.02em; }
+.avatar-color-0 { background-color: var(--hj-av0-bg); color: var(--hj-av0-fg); }
+.avatar-color-1 { background-color: var(--hj-av1-bg); color: var(--hj-av1-fg); }
+.avatar-color-2 { background-color: var(--hj-av2-bg); color: var(--hj-av2-fg); }
+.avatar-color-3 { background-color: var(--hj-av3-bg); color: var(--hj-av3-fg); }
+.avatar-color-4 { background-color: var(--hj-av4-bg); color: var(--hj-av4-fg); }
+.avatar-color-5 { background-color: var(--hj-av5-bg); color: var(--hj-av5-fg); }
+.avatar-color-6 { background-color: var(--hj-av6-bg); color: var(--hj-av6-fg); }
+.avatar-color-7 { background-color: var(--hj-av7-bg); color: var(--hj-av7-fg); }
+.avatar.s50 { border-radius: var(--hj-radius); }
+.avatar.s40 { border-radius: var(--hj-radius-md); }
+/* The assignee's small avatar on the author's: cut out of the card, not white */
+div.avatar-with-child > .avatar:nth-child(2) { border: 2px solid var(--hj-surface); border-radius: var(--hj-radius-sm); }
+div.avatar-with-child > .avatar:nth-child(2).group-avatar { background-color: var(--hj-surface); }
+
+/* Redmine 7 marks the current tab, sidebar link and calendar day with this color */
+:root { --color-current-marker: var(--hj-accent); }
+#sidebar a.selected { box-shadow: none; }
+
+/* Issue page: "« Previous | 1/162 | Next »" stays plain text, as in Redmine 6 */
+div.issue .next-prev-links { color: var(--hj-text-3); font-size: 0.875rem; }
+div.issue .next-prev-links .pagination ul.pages { display: inline-flex; align-items: center; margin: 0; }
+div.issue .next-prev-links .pagination ul.pages li { margin: 0; border: 0; background: transparent; }
+div.issue .next-prev-links .pagination ul.pages li + li::before { content: "|"; color: var(--hj-text-3); margin: 0 6px; }
+div.issue .next-prev-links .pagination ul.pages li a, div.issue .next-prev-links .pagination ul.pages li span {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+}
+div.issue .next-prev-links .pagination ul.pages li span { color: var(--hj-text-3); }
+div.issue .next-prev-links .pagination ul.pages li.page a:hover { background: transparent; color: var(--hj-accent-hover); }
+
+/* Notification bell (redmine_web_notifications). Its stylesheet loads after the theme, so the panel
+   colors come in through the plugin's custom properties (defined on <html>, so they follow dark mode). */
+:root {
+  --web-notifications-bg: var(--hj-pop);
+  --web-notifications-text: var(--hj-text);
+  --web-notifications-title: var(--hj-text);
+  --web-notifications-summary: var(--hj-text-2);
+  --web-notifications-muted: var(--hj-text-3);
+  --web-notifications-link: var(--hj-accent-text);
+  --web-notifications-border: var(--hj-line);
+  --web-notifications-divider: var(--hj-line);
+  --web-notifications-hover-bg: var(--hj-hover);
+  --web-notifications-unread-bg: var(--hj-accent-softer);
+  --web-notifications-unread-hover-bg: var(--hj-accent-soft);
+}
+/* Redmine 7: the bell stands between the theme toggle and the avatar */
+html .top-menu .profile-menu .web-notifications-menu--header { margin: 0; }
+#top-menu .profile-menu a.web-notifications-bell {
+  height: 28px;
+  box-sizing: border-box;
+  padding: 0 7px !important;
+  margin: 0;
+  color: var(--hj-text-2);
+}
+#top-menu .profile-menu a.web-notifications-bell:hover { background: var(--hj-hover); color: var(--hj-text); }
+/* Phones: the bell sits in the header, left of the menu button */
+html #header .web-notifications-menu--mobile { display: flex; align-items: center; padding: 0 4px; }
+html #header .web-notifications-menu--mobile a.web-notifications-bell { color: var(--hj-text-2); padding: 8px !important; }
+html #header .web-notifications-menu--mobile a.web-notifications-bell:hover { background: var(--hj-hover); color: var(--hj-text); }
+html #header .web-notifications-menu--mobile .web-notifications-badge { top: 2px; right: 0; }
+
+/* Issue history: Redmine 7 renamed the journal parts (journal-header, journal-content, journal-details) */
+.journals h4.journal-header {
+  background: transparent;
+  border-bottom: 1px solid var(--hj-line);
+  color: var(--hj-text-2);
+  font-weight: 500;
+  padding: 8px 0 7px;
+  margin-bottom: 6px;
+}
+.journals h4.journal-header .avatar { margin-right: 6px; }
+.journals h4.journal-header .update-info { color: var(--hj-text-3); }
+.journals div:target h4.journal-header { background-color: var(--hj-accent-softer); }
+.journals .journal-content { padding-left: 0; margin-bottom: 0.6em; }
+.journals .journal .journal-content .wiki { margin-left: 0; }
+.journals .private-notes { border-left: 0; }
+.journals .journal-meta .journal-link { color: var(--hj-text-3); }
+.journals .journal-details { color: var(--hj-text-3); margin-bottom: 0.6em; }
+.journals .journal-details a { color: var(--hj-accent-text); }
+.journals .journal-details a:hover { color: var(--hj-accent-hover); }
+
+/* The issue title bar that sticks to the top of the window while scrolling (new in Redmine 7) */
+div#sticky-issue-header {
+  background-color: var(--hj-pop);
+  color: var(--hj-text);
+  border-bottom: 1px solid var(--hj-line);
+  box-shadow: 0 2px 10px rgba(60, 40, 10, 0.08);
+  font-size: 0.875rem;
+  padding: 10px 24px;
+}
+html.hanji-dark div#sticky-issue-header { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35); }
+div#sticky-issue-header .issue-heading { color: var(--hj-text-2); }
+
+/* Reactions (thumbs up) */
+.reaction-button .icon-label { color: var(--hj-text-2); }
+.reaction-button.readonly .icon-svg { stroke: var(--hj-text-3); }
+
+/* Gantt: Redmine 7 loads gantt.css after the theme and paints the header strips #f1f3f5 inline */
+.gantt_hdr[style*="#f1f3f5"] { background: var(--hj-surface-2) !important; }
+html .gantt_hdr { border-color: var(--hj-line-strong); }
+html .gantt_hdr.nwday { background-color: var(--hj-hover); color: var(--hj-text-3); }
+html .gantt_subjects div.issue-subject:hover { background-color: var(--hj-accent-softer); }
+html .task { color: var(--hj-text-3); }
+html .task_todo { background: var(--hj-line-strong) none; border-color: transparent; border-radius: 3px; }
+html .task_done { background: var(--hj-accent) none; border-color: var(--hj-accent); border-radius: 3px 0 0 3px; }
+html .task_late { background: var(--hj-danger) none; border-color: var(--hj-danger); border-radius: 3px 0 0 3px; }
+html .task_todo.parent { background: var(--hj-text-3); border-color: var(--hj-text-3); }
+html .version.task_todo, html .project.task_todo { background-color: var(--hj-pop); border-color: var(--hj-line-strong); }
+html .version-behind-schedule a, html .issue-behind-schedule a { color: var(--hj-warning-text); }
+html .version-overdue a, html .issue-overdue a, html .project-overdue a { color: var(--hj-danger-text); }
+
+/* Watchers: the remove link stays quiet until hovered */
+#watchers a.delete svg.icon-svg { stroke: var(--hj-text-3); }
+#watchers a.delete:hover svg.icon-svg { stroke: var(--hj-danger); }
 
 /* =========================================================================================
    17. Phones and narrow windows (Redmine switches to its mobile layout below 900px)
