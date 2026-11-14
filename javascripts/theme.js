@@ -11,6 +11,7 @@
 
   var STORAGE_KEY = 'redmine_theme';
   var BTN_ID = 'hanji-theme-toggle';
+  var BTN_CLASS = 'hanji-theme-toggle';
   var root = document.documentElement;
   var media = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
 
@@ -44,26 +45,21 @@
     var dark = isDark();
     root.classList.add('hanji-theme');
     root.classList.toggle('hanji-dark', dark);
-    var btn = document.getElementById(BTN_ID);
-    if (btn) {
-      var l = labels();
-      var title = dark ? l.toLight : l.toDark;
-      btn.innerHTML = (dark ? ICON_SUN : ICON_MOON) + '<span class="hanji-theme-toggle-label">' + (dark ? l.light : l.dark) + '</span>';
-      btn.title = title;
-      btn.setAttribute('aria-label', title);
+    var buttons = document.querySelectorAll('.' + BTN_CLASS);
+    if (!buttons.length) return;
+    var l = labels();
+    var title = dark ? l.toLight : l.toDark;
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].innerHTML = (dark ? ICON_SUN : ICON_MOON) + '<span class="hanji-theme-toggle-label">' + (dark ? l.light : l.dark) + '</span>';
+      buttons[i].title = title;
+      buttons[i].setAttribute('aria-label', title);
     }
   }
 
-  // The toggle is the first item of the account menu (top right). On phones Redmine moves
-  // that menu into the slide-out menu, so the toggle goes along with it.
-  function insertToggle() {
-    if (document.getElementById(BTN_ID)) return;
-    var list = document.querySelector('#account > ul') || document.querySelector('.js-profile-menu > ul');
-    if (!list) return;
-    var li = document.createElement('li');
-    li.className = 'hanji-theme-toggle-item';
+  function createToggle(id) {
     var a = document.createElement('a');
-    a.id = BTN_ID;
+    if (id) a.id = id;
+    a.className = BTN_CLASS;
     a.href = '#';
     a.setAttribute('role', 'button');
     a.addEventListener('click', function (e) {
@@ -71,8 +67,27 @@
       try { localStorage.setItem(STORAGE_KEY, isDark() ? 'light' : 'dark'); } catch (err) {}
       apply();
     });
-    li.appendChild(a);
-    list.insertBefore(li, list.firstChild);
+    return a;
+  }
+
+  // Redmine 6: the toggle is the first item of the account menu (top right). On phones Redmine
+  // moves that menu into the slide-out menu, so the toggle goes along with it.
+  // Redmine 7: the account menu is an avatar drop-down, so the toggle goes in front of it as
+  // the first item of the profile menu and stays visible. Phones hide that bar, so a second
+  // toggle goes into the drop-down list, which Redmine moves into the slide-out menu (the
+  // stylesheet shows it only there).
+  function insertToggle() {
+    if (document.getElementById(BTN_ID)) return;
+    var profile = document.querySelector('.top-menu .profile-menu');
+    if (profile) profile.insertBefore(createToggle(BTN_ID), profile.firstChild);
+    var list = document.querySelector('#account > ul') || document.querySelector('#account .dropdown-content > ul') ||
+               document.querySelector('.js-profile-menu > ul');
+    if (list) {
+      var li = document.createElement('li');
+      li.className = 'hanji-theme-toggle-item';
+      li.appendChild(createToggle(profile ? null : BTN_ID));
+      list.insertBefore(li, list.firstChild);
+    }
     apply();
   }
 

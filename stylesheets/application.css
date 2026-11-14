@@ -1141,10 +1141,90 @@ table.list td.checkbox input, table.list th.checkbox input { margin: 0; vertical
 }
 #top-menu a#hanji-theme-toggle:hover { background: var(--hj-hover); color: var(--hj-text); }
 #hanji-theme-toggle:focus-visible { outline: 2px solid var(--hj-accent); outline-offset: 2px; }
-#hanji-theme-toggle svg { display: block; flex: none; }
+a.hanji-theme-toggle svg { display: block; flex: none; }
 .hanji-theme-toggle-label { display: none; }
-.flyout-menu a#hanji-theme-toggle { display: flex; align-items: center; gap: 10px; }
+.flyout-menu a.hanji-theme-toggle { display: flex; align-items: center; gap: 10px; }
 .flyout-menu .hanji-theme-toggle-label { display: inline; }
+
+/* =========================================================================================
+   16b. Redmine 7 markup
+   Redmine 7 rebuilt the top bar (avatar drop-down instead of "Logged in as" links), paints
+   the project menu as a band and draws initials avatars. These selectors only match the
+   Redmine 7 markup, so Redmine 6 keeps the rules above unchanged.
+   ========================================================================================= */
+/* Top bar: links on the left, [theme toggle][bell][avatar] on the right */
+nav.top-menu { background: transparent; color: var(--hj-text-2); }
+.top-menu .profile-menu { display: flex; align-items: center; gap: 2px; min-height: 28px; }
+.top-menu .profile-menu > a#hanji-theme-toggle { margin: 0; }
+/* The second toggle in the account drop-down is only for the slide-out menu on phones */
+#account .dropdown-content li.hanji-theme-toggle-item { display: none; }
+#top-menu #account.dropdown .dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  box-sizing: border-box;
+  padding: 0 6px 0 3px;
+  margin: 0;
+  border-radius: var(--hj-radius-sm);
+  color: var(--hj-text-2);
+}
+#top-menu #account.dropdown .dropdown-trigger:hover,
+#top-menu #account.dropdown:has(.dropdown-content:not(.hidden)) .dropdown-trigger { background: var(--hj-hover); color: var(--hj-text); }
+#top-menu #account .dropdown-trigger .icon-svg { stroke: var(--hj-text-3); }
+#top-menu #account .dropdown-trigger:hover .icon-svg { stroke: var(--hj-text-2); }
+#top-menu #account .dropdown-trigger .avatar { border-radius: 6px; }
+#account .dropdown-content {
+  background: var(--hj-pop);
+  color: var(--hj-text);
+  border: 1px solid var(--hj-line);
+  border-radius: var(--hj-radius-md);
+  box-shadow: var(--hj-shadow-pop);
+  padding: 4px;
+  min-width: 200px;
+  margin-top: 6px;
+  line-height: 1.45;
+  font-size: 0.875rem;
+}
+#account .dropdown-content .user-info { display: flex; flex-direction: column; padding: 8px 10px 6px; color: var(--hj-text); }
+#account .dropdown-content .user-info .user-name { font-weight: 700; }
+#account .dropdown-content .user-info .user-login { color: var(--hj-text-3); font-size: 0.8rem; }
+#account .dropdown-content .dropdown-divider { border-top: 1px solid var(--hj-line); margin: 4px 0; }
+#top-menu #account .dropdown-content li a, #top-menu #account .dropdown-content .dropdown-items a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  margin: 0;
+  border: 0;
+  border-radius: var(--hj-radius-sm);
+  color: var(--hj-text);
+  font-weight: 500;
+}
+#top-menu #account .dropdown-content li a:hover, #top-menu #account .dropdown-content .dropdown-items a:hover {
+  background: var(--hj-accent-soft);
+  color: var(--hj-accent-text);
+}
+#account .dropdown-content li:has(> a.logout) { border-top: 1px solid var(--hj-line); margin-top: 4px; padding-top: 4px; }
+
+/* Header and project menu: underline tabs on the paper, no band */
+body.has-main-menu #header { padding-bottom: 64px; }
+#header h1 { padding: 2px 10px 1px 0; }
+#quick-search { min-height: 0; }
+#main-menu.tabs { background: transparent; padding: 0; }
+#main-menu.tabs > ul { min-height: 0; align-items: flex-end; }
+#main-menu.tabs li a, #main-menu.tabs li a:link, #main-menu.tabs li a:visited { display: block; line-height: 1.55; }
+#main-menu.tabs li a.selected, #main-menu.tabs li a.selected:hover { box-shadow: none; }
+#main-menu.tabs li:has(a#new-object) { padding-right: 0; }
+#main-menu.tabs li a.new-object, #main-menu.tabs li a.new-object:hover {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  margin: 0 0 -1px;
+  padding: 8px 12px 10px;
+}
+#main-menu.tabs .menu-children { border: 1px solid var(--hj-line); }
+#main-menu.tabs .menu-children li a, #main-menu.tabs .menu-children li a:link { line-height: 1.45; border-bottom: 0; }
 
 /* =========================================================================================
    17. Phones and narrow windows (Redmine switches to its mobile layout below 900px)
@@ -1199,7 +1279,7 @@ table.list td.checkbox input, table.list th.checkbox input { margin: 0; vertical
   }
   html .flyout-menu__search input[type='text'] { background: var(--hj-field); color: var(--hj-text); border: 1px solid var(--hj-line-strong); border-radius: var(--hj-radius-sm); }
   html .flyout-menu svg.icon-svg, html .flyout-menu .icon svg { stroke: currentColor; }
-  html .flyout-menu a#hanji-theme-toggle { padding-top: 12px; padding-bottom: 12px; }
+  html .flyout-menu a.hanji-theme-toggle { padding-top: 12px; padding-bottom: 12px; }
 
   /* Action links above the content become buttons */
   html #content > .contextual > a, html #content > .contextual .drdn, html p.buttons a {
@@ -1289,5 +1369,5 @@ table.list td.checkbox input, table.list th.checkbox input { margin: 0; vertical
     box-shadow: none !important;
     border-color: #ccc !important;
   }
-  #hanji-theme-toggle { display: none !important; }
+  .hanji-theme-toggle { display: none !important; }
 }
